@@ -90,6 +90,11 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi
+
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -101,10 +106,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 
 colorscript random
 
 eval "$(starship init zsh)"
 
 
-alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+fpath+=${ZDOTDIR:-~}/.zsh_functions
