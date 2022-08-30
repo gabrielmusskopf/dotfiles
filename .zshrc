@@ -109,6 +109,7 @@ fi
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias v=nvim
 alias cls=clear
+alias games="ls /usr/games/"
 
 colorscript random
 
