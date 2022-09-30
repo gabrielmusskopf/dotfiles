@@ -72,9 +72,10 @@ ZSH_DISABLE_COMPFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf zsh-autosuggestions web-search dirhistory history jsontools)
+plugins=(git asdf zsh-autosuggestions web-search dirhistory history jsontools ls material-colors)
 
 source $ZSH/oh-my-zsh.sh
+. $HOME/.asdf/asdf.sh
 
 # User configuration
 
@@ -94,7 +95,6 @@ if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
 
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -110,6 +110,21 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias v=nvim
 alias cls=clear
 alias games="ls /usr/games/"
+alias g="git"
+alias gst="git status"
+alias gc="git commit -m"
+alias gpo="git pull origin"
+alias gck="git checkout"
+alias gpl="git pull"
+alias gps="git push"
+alias gpso="git push --set-upstream origin"
+alias ga="git add"
+alias gaa="git add ."
+alias gr="git restore"
+alias gra="git restore ."
+alias grs="git restore --staged"
+alias grs="git restore --staged ."
+alias sudoenv="sudo -E env 'PATH=$PATH'"
 
 colorscript random
 
