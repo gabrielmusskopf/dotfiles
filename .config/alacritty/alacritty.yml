@@ -8,8 +8,18 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-#import:
+import:
 #  - /path/to/alacritty.yml
+  #- ~/.config/alacritty/aura-theme.yml
+  #- ~/.config/alacritty/monokai-pro.yml
+  #- ~/.config/alacritty/ayu-mirage.yml
+  - ~/.config/alacritty/banana-bluberry.yml
+  #- ~/.config/alacritty/bright-lights.yml
+  #- ~/.config/alacritty/bluloco-dark.yml
+  #- ~/.config/alacritty/calamity.yml
+  #- ~/.config/alacritty/duo-tone-dark.yml
+  #- ~/.config/alacritty/fairy-floss.yml
+  #- ~/.config/alacritty/iceberg.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -68,7 +78,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  #opacity: 1.0
+  opacity: 0.75
 
   # Startup Mode (changes require restart)
   #
@@ -110,19 +120,15 @@ window:
   #multiplier: 3
 
 # Font configuration
-#font:
+font:
   # Normal (roman) font face
-  #normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux/BSD) monospace
-    #   - (Windows) Consolas
-    #family: monospace
-
-    # The `style` can be specified to pick a specific face.
-    #style: Regular
+  normal:
+    # family: CaskaydiaCove NF Mono 
+    family: JetBrainsMonoNl NFM
+    # family: FiraCode NFM 
+    # family: Hack NFM 
+    # family: agave NFM 
+    style: Regular
 
   # Bold font face
   #bold:
@@ -199,7 +205,7 @@ window:
     # color will be used.
     #dim_foreground: '#828482'
     #bright_foreground: '#eaeaea'
-
+    
   # Cursor colors
   #
   # Colors which should be used to draw the terminal cursor.

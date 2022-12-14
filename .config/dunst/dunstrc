@@ -31,7 +31,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x0-30+30"
+    geometry = "350x0-30+35"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -48,7 +48,7 @@
     # The height of the entire notification.  If the height is smaller
     # than the font height and padding combined, it will be raised
     # to the font height and padding.
-    notification_height = 0
+    notification_height = 60
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -141,7 +141,7 @@
 
     # Split notifications into multiple lines if they don't fit into
     # geometry.
-    word_wrap = yes
+    word_wrap = no
 
     # When word_wrap is set to no, specify where to make an ellipsis in long lines.
     # Possible values are "start", "middle" and "end".
@@ -279,7 +279,7 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     foreground = "#ffffff"
     background = "#282c34"
-    icon = /home/gabrielgrahlmusskopf/.config/dunst/normal.png
+    icon = /home/gabrielgrahlmusskopf/.config/dunst/normal2.png
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
@@ -287,7 +287,7 @@
     background = "#282c34"
     foreground = "#ffffff"
     timeout = 10
-    icon = /home/gabrielgrahlmusskopf/.config/dunst/normal.png
+    icon = /home/gabrielgrahlmusskopf/.config/dunst/normal2.png
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
 
@@ -365,7 +365,7 @@
 #    fullscreen = delay
 #[fullscreen_show_critical]
 #    msg_urgency = critical
-#    fullscreen = show
+#    fullscreen = showve this "String" c
 
 #[espeak]
 #    summary = "*"
