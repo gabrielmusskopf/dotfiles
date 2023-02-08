@@ -8,6 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="robbyrussell"
 ZSH_THEME="spaceship"
 
 ZSH_DISABLE_COMPFIX=true
@@ -72,7 +73,12 @@ ZSH_DISABLE_COMPFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf zsh-autosuggestions web-search dirhistory history jsontools ls material-colors)
+plugins=(
+	git 
+	asdf 
+	zsh-autosuggestions 
+	history 
+)
 
 source $ZSH/oh-my-zsh.sh
 . $HOME/.asdf/asdf.sh
@@ -108,27 +114,33 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias v=nvim
-alias cls=clear
+alias nvim-conf="nvim ~/.config/nvim/"
+alias cls="clear"
+alias shell-config="v ~/.zshrc"
 alias games="ls /usr/games/"
 alias g="git"
-alias gst="git status"
-alias gc="git commit -m"
-alias gpo="git pull origin"
-alias gck="git checkout"
-alias gpl="git pull"
-alias gps="git push"
-alias gpso="git push --set-upstream origin"
-alias ga="git add"
-alias gaa="git add ."
-alias gr="git restore"
-alias gra="git restore ."
-alias grs="git restore --staged"
-alias grs="git restore --staged ."
+alias stats="git status"
+alias commit="git commit"
+alias pull="git pull"
+alias checkout="git checkout"
+alias pull="git pull"
+alias push="git push"
+alias stash="git stash"
+alias gpso="git rev-parse --abbrev-ref HEAD | git push --set-upstream origin"
+alias add="git add"
+alias restore="git restore"
 alias sudoenv="sudo -E env 'PATH=$PATH'"
 
 colorscript random
 
-eval "$(starship init zsh)"
-
+#eval "$(zsh)"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+#source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+#source "$HOME/.zsh/spaceship/spaceship.zsh"
+
+SPACESHIP_BATTERY_SHOW=false
+SPACESHIP_DOCKER_SHOW=false
+
+#source "/home/gabrielgmusskopf/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+
