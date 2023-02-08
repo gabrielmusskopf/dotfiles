@@ -12,6 +12,8 @@ from libqtile.widget.backlight import ChangeDirection
 # Customizados
 from typing import TYPE_CHECKING
 from custom.battery import CustomBattery
+#from custom.spotify import Spotify
+#from custom.spotify_widget import Spotify
 
 # Utils
 from colors import colors
@@ -26,6 +28,7 @@ terminal = guess_terminal()
 myBrowser = "brave-browser"
 
 HAS_BATTERY: bool = os.path.isdir("/sys/class/power_supply/BAT0")
+MUSIC_CTRL = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player."
 
 @hook.subscribe.startup
 def dbus_register(): 
@@ -60,6 +63,36 @@ def notification(qtile: Qtile, request: str) -> None:
     except Exception as err:
         logger.warning(f"Failed to send notification: {err}")
 
+
+@lazy.function
+def spawn_or_focus(qtile: Qtile, app: str) -> None:
+    """Check if the app being launched is already running, if so focus it"""
+    window = None
+    for win in qtile.windows_map.values():
+        if isinstance(win, Window):
+            wm_class: list | None = win.get_wm_class()
+            if wm_class is None or win.group is None:
+                return
+            if any(item.lower() in app for item in wm_class):
+                window = win
+                group = win.group
+                group.toscreen(toggle=False)
+                break
+
+    if window is None:
+        qtile.spawn(app)
+
+    elif window == qtile.current_window:
+        try:
+            assert (
+                qtile.current_layout.swap_main is not None
+            ), "The current layout should have swap_main"
+            qtile.current_layout.swap_main()
+        except AttributeError:
+            return
+    else:
+        qtile.current_group.focus(window)
+
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -68,7 +101,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "Tab", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -98,10 +131,12 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "Space", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
 
     # Abrir navegador
     Key([mod], "b", lazy.spawn(myBrowser), desc='Abrir navegador'),
+    # https://www.howtoforge.com/tutorial/taking-screenshots-in-linux-using-gnome-screenshot
+    Key([mod, "shift"], "s", lazy.spawn("gnome-screenshot -i"), desc='Tirar screenshot de e copiar para a área de transferência'),
 
     # Habilitando controle de volume pelas teclas de media
     # https://github.com/qtile/qtile/blob/master/libqtile/backend/x11/xkeysyms.python
@@ -121,7 +156,7 @@ keys = [
     Key([mod, "shift"], "b", notification("battery")),
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "12345qwer"]
 
 for i in groups:
     keys.extend(
@@ -241,12 +276,18 @@ def get_widgets():
                         mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("gnome-control-center wifi")}
                         ),
                 widget_separator,
+                widget.ThermalSensor(
+                       foreground = colors[3],
+                       background = colors[0],
+                       fmt = "    {}"
+                        ),
                 widget.Memory(
                        foreground = colors[3],
                        background = colors[0],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
-                       fmt = 'Mem: {}',
-                       padding = 5
+                       fmt = '{}',
+                       padding = 5,
+                       measure_mem='G'
                        ),
                 widget_separator,
                 widget.Backlight(
@@ -282,7 +323,7 @@ def get_widgets():
                         ),  
                 widget_separator,
                 widget.PulseVolume(
-                        fmt="Vol: {}",
+                        fmt= "墳   {}",
                         foreground=colors[6],
                         background=colors[0],
                         padding=5
@@ -322,13 +363,13 @@ layouts = [
     layout.MonadTall(
         border_focus=colors[9],
         border_width=1,
-        margin=7
+        margin=8
         ),
     layout.Max(),
-    layout.Floating(
-        border_focus = colors[9],
-        border_normal = colors[9]
-        ),
+    #layout.Floating(
+    #    border_focus = colors[9],
+    #    border_normal = colors[9]
+    #    ),
     #layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     #layout.Spiral(),
   #  layout.Stack(num_stacks=2),
