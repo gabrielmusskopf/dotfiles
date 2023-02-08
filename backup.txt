@@ -1,0 +1,3 @@
+
+Lembrar de:
+- Pasta git bare "dotfiles" 
