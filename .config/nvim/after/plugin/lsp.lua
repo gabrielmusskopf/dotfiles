@@ -1,12 +1,18 @@
 local lsp = require("lsp-zero")
 
-lsp.preset("recommended")
+lsp.preset(	{
+    name = 'minimal',
+    set_lsp_keymaps = true,
+    manage_nvim_cmp = true,
+    suggest_lsp_servers = false,
+})
 
 lsp.ensure_installed({
 	"tsserver",
 	"eslint",
-	"sumneko_lua",
-    "jdtls"
+	"lua_ls",
+    "jdtls",
+    "gopls"
 })
 
 local cmp = require('cmp')
@@ -39,7 +45,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "<C-Space>", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)

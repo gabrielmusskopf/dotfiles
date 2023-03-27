@@ -13,13 +13,14 @@ import:
   #- ~/.config/alacritty/aura-theme.yml
   #- ~/.config/alacritty/monokai-pro.yml
   #- ~/.config/alacritty/ayu-mirage.yml
-  - ~/.config/alacritty/banana-bluberry.yml
+  #- ~/.config/alacritty/banana-bluberry.yml
   #- ~/.config/alacritty/bright-lights.yml
   #- ~/.config/alacritty/bluloco-dark.yml
   #- ~/.config/alacritty/calamity.yml
   #- ~/.config/alacritty/duo-tone-dark.yml
   #- ~/.config/alacritty/fairy-floss.yml
   #- ~/.config/alacritty/iceberg.yml
+  - ~/.config/alacritty/challenger-deep.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -78,11 +79,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-<<<<<<< HEAD
-  opacity: 0.9
-=======
-  opacity: 0.75
->>>>>>> fdd7e053dd83b3e750864399df763894790d0ad9
+  opacity: 0.8
 
   # Startup Mode (changes require restart)
   #
@@ -127,13 +124,10 @@ window:
 font:
   # Normal (roman) font face
   normal:
-<<<<<<< HEAD
-          # family: CaskaydiaCove NF Mono 
-    # family: JetBrainsMonoNl NFM
-=======
+    #family: CaskaydiaCove NF Mono 
+    #family: JetBrainsMonoNl NFM
     # family: CaskaydiaCove NF Mono 
-    family: JetBrainsMonoNl NFM
->>>>>>> fdd7e053dd83b3e750864399df763894790d0ad9
+    #family: JetBrainsMonoNl NFM
     # family: FiraCode NFM 
     # family: Hack NFM 
     # family: agave NFM 

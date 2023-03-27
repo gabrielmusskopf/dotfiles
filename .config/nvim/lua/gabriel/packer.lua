@@ -7,7 +7,6 @@ return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 
-
     -- Temas
 	use({
 		'rose-pine/neovim',
@@ -19,12 +18,21 @@ return require('packer').startup(function(use)
     use { "ellisonleao/gruvbox.nvim" }
     use 'kvrohit/rasmus.nvim'
     use 'savq/melange'
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     -- Git
     use('tpope/vim-fugitive')
     use {'akinsho/git-conflict.nvim', tag = "*", config = function()
         require('git-conflict').setup()
     end}
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
+
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function()
+        vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
+    })
 
 	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 	use('nvim-lua/plenary.nvim')
@@ -35,6 +43,7 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+    use { 'mhartington/formatter.nvim' }
 
     -- LSP
     use('mfussenegger/nvim-jdtls')
@@ -47,7 +56,7 @@ return require('packer').startup(function(use)
 			{'williamboman/mason-lspconfig.nvim'},
 
 			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
+            {'hrsh7th/nvim-cmp'},
 			{'hrsh7th/cmp-buffer'},
 			{'hrsh7th/cmp-path'},
 			{'saadparwaiz1/cmp_luasnip'},
@@ -60,4 +69,5 @@ return require('packer').startup(function(use)
 			{'rafamadriz/friendly-snippets'},
 		}
 	}
+
 end)
