@@ -23,3 +23,4 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "100"
 
 vim.g.mapleader = " "
+

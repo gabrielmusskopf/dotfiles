@@ -1,5 +1,3 @@
--- This file can be loaded by calling `lua require('packer')` from your init.vim
-
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
@@ -19,6 +17,7 @@ return require('packer').startup(function(use)
     use 'kvrohit/rasmus.nvim'
     use 'savq/melange'
     use { "catppuccin/nvim", as = "catppuccin" }
+    use { "EdenEast/nightfox.nvim" }
 
     -- Git
     use('tpope/vim-fugitive')
@@ -33,8 +32,8 @@ return require('packer').startup(function(use)
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function()
         vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
     })
-
-	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use 'nvim-tree/nvim-web-devicons'
+    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 	use('nvim-lua/plenary.nvim')
 	use('ThePrimeagen/harpoon')
 	use('mbbill/undotree')
@@ -44,9 +43,14 @@ return require('packer').startup(function(use)
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
     use { 'mhartington/formatter.nvim' }
+    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
 
     -- LSP
-    use('mfussenegger/nvim-jdtls')
+    --use('mfussenegger/nvim-jdtls')
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
