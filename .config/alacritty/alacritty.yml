@@ -124,13 +124,13 @@ window:
 font:
   # Normal (roman) font face
   normal:
-    #family: CaskaydiaCove NF Mono 
+    #family: Cascadia Code
     #family: JetBrainsMonoNl NFM
     # family: CaskaydiaCove NF Mono 
-    #family: JetBrainsMonoNl NFM
-    # family: FiraCode NFM 
+    family: JetBrainsMonoNl NFM
+    #family: FiraCode NFM 
     # family: Hack NFM 
-    # family: agave NFM 
+    #family: agave Nerd Font Mono
     style: Regular
 
   # Bold font face
