@@ -145,5 +145,6 @@ SPACESHIP_DOCKER_SHOW=false
 #source "/home/gabrielgmusskopf/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 export PATH=$HOME/jdtls/bin:$PATH
+export PATH=$PATH:$HOME/.asdf/installs/golang/1.20.3/packages/bin
 export JAVA_HOME=$HOME/.asdf/installs/java/openjdk-17
 
