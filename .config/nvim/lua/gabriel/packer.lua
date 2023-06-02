@@ -9,9 +9,6 @@ return require('packer').startup(function(use)
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
     })
     use { "ellisonleao/gruvbox.nvim" }
     use { "sainnhe/gruvbox-material" }
@@ -25,7 +22,6 @@ return require('packer').startup(function(use)
     use { 'akinsho/git-conflict.nvim', tag = "*", config = function()
         require('git-conflict').setup()
     end }
-
     use({
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
@@ -44,6 +40,10 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    }
     use { 'mhartington/formatter.nvim' }
     use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
     use {
@@ -60,6 +60,68 @@ return require('packer').startup(function(use)
                 -- refer to the configuration section below
             }
         end
+    }
+    use { 'norcalli/nvim-colorizer.lua' }
+    use {
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                theme = 'hyper',
+                --preview = {
+                --    command = 'lolcat',
+                --    file_path = '~/.config/banner/preview',
+                --    file_height = 25,
+                --    file_width = 58
+                --},
+                config = {
+                   -- header = function ()
+                   --     return {
+                   --     ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+                   --     ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+                   --     ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+                   --     ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+                   --     ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+                   --     ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+                   --     "N E O V I M - v " .. vim.version().major .. "." .. vim.version().minor,
+                   --     ""}
+                   -- end,
+                   -- week_header = {
+                   --     enable = false,
+                   -- },
+                    shortcut = {
+                        { desc = '󰊳 Update', group = '@property', action = 'PackerSync', key = 'u' },
+                        {
+                            icon = ' ',
+                            icon_hl = '@variable',
+                            desc = 'Config',
+                            group = 'Label',
+                            action = 'Telescope find_files',
+                            key = 'f',
+                        },
+                        {
+                            icon = ' ',
+                            desc = 'Projetos',
+                            group = 'DiagnosticHint',
+                            action = 'Telescope file_browser path=$HOME/projetos',
+                            key = 'p',
+                        },
+                        {
+                            icon = ' ',
+                            desc = 'Bookmarks',
+                            group = 'Label',
+                            action = 'Telescope marks',
+                            key = 'b',
+                        },
+                    },
+                    packages = { enable = false },
+                    project = { enable = true, limit = 8, icon = '', label = ' mrp', action = 'Telescope find_files cwd=' },
+                    mru = { limit = 10, icon = '', label = ' mru', },
+                    footer = {}
+                },
+            }
+        end,
+        requires = {'nvim-tree/nvim-web-devicons'}
     }
 
     -- LSP

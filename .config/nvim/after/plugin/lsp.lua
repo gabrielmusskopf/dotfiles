@@ -1,4 +1,4 @@
--- Setup language servers.
+    -- Setup language servers.
 local lsp = require('lsp-zero').preset({})
 lsp.setup()
 
