@@ -124,16 +124,18 @@ alias commit="git commit"
 alias pull="git pull"
 alias checkout="git checkout"
 alias pull="git pull"
-alias push="git push --set-upstream origin $(git branch --show-current)"
+alias push="git push"
+#alias pusho="git push --set-upstream origin $(git branch --show-current)"
 alias stash="git stash"
 alias gpso="git rev-parse --abbrev-ref HEAD | git push --set-upstream origin"
 alias add="git add"
 alias restore="git restore"
 alias sudoenv="sudo -E env 'PATH=$PATH'"
 
-colorscript random
+alias rip="rip --graveyard ~/.local/share/graveyard"
 
-#eval "$(zsh)"
+#colorscript random
+neofetch
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 #source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
@@ -145,6 +147,8 @@ SPACESHIP_DOCKER_SHOW=false
 #source "/home/gabrielgmusskopf/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
 
 export PATH=$HOME/jdtls/bin:$PATH
+export PATH=$HOME/.local/bin/scripts:$PATH
 export PATH=$PATH:$HOME/.asdf/installs/golang/1.20.3/packages/bin
 export JAVA_HOME=$HOME/.asdf/installs/java/openjdk-17
 
+eval "$(zoxide init zsh)"
