@@ -21,6 +21,7 @@ import:
   #- ~/.config/alacritty/fairy-floss.yml
   #- ~/.config/alacritty/iceberg.yml
   - ~/.config/alacritty/challenger-deep.yml
+  #- ~/.config/alacritty/dracula.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -79,7 +80,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.8
+  opacity: 0.75
 
   # Startup Mode (changes require restart)
   #
@@ -127,10 +128,12 @@ font:
     #family: Cascadia Code
     #family: JetBrainsMonoNl NFM
     # family: CaskaydiaCove NF Mono 
-    family: JetBrainsMonoNl NFM
-    #family: FiraCode NFM 
-    # family: Hack NFM 
-    #family: agave Nerd Font Mono
+    #family: JetBrainsMonoNl NFM
+    #family: BlexMono Nerd Font Mono
+    #family: Cousine Nerd Font Mono
+    #family: DejaVuSansMono Nerd Font Mono
+    #family: Lilex Nerd Font Mono
+    family: NotoMono Nerd Font Mono
     style: Regular
 
   # Bold font face
