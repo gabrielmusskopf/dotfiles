@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/gabrielgmusskopf/.config/polybar/launch.sh
+Hidden=false
+X-MATE-Autostart-enabled=true
+Name=Polybar
+
+#https://askubuntu.com/questions/1358089/auto-launch-polybar-at-boot-with-default-wm-gnome-mutter-21-04
+#https://wiki.archlinux.org/title/GNOME
+#https://wiki.archlinux.org/title/XDG_Autostart

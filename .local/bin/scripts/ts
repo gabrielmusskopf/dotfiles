@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Obtém uma lista de sessões ativas no Tmux
+sessoes=$(tmux list-sessions -F "#S" 2>/dev/null)
+
+# Verifica se existem sessões ativas
+if [[ -z "$sessoes" ]]; then
+  echo "Nenhuma sessão ativa encontrada."
+  exit 1
+fi
+
+# Exibe as sessões com o fzf para seleção
+sessao_selecionada=$(echo "$sessoes" | fzf +m --reverse --height 80% --header "Selecione uma sessão:")
+
+if tmux has-session -t "$sessao_selecionada" 2>/dev/null; then
+  tmux attach-session -t "$sessao_selecionada"
+else
+  tmux new-session -s "$sessao_selecionada"
+fi

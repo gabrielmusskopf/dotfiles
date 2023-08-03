@@ -12,4 +12,7 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch the bar
-polybar -q mybar -c "$DIR"/config.ini &
+polybar -q top -c "$DIR"/config.ini 2>/tmp/polybar-top.log &
+polybar -q bottom -c "$DIR"/config.ini 2>/tmp/polybar-bottom.log  &
+
+echo "polybar lauched"

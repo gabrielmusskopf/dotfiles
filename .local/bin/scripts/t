@@ -1,0 +1,40 @@
+#!/bin/bash
+
+path="$1"
+echo "$path"
+
+folder=""
+if [[ -z $path ]]; then
+    # Se não for informada uma pasta, busca de todas caminhos já conhecidos
+    folder=$(zoxide query -l | fzf --reverse --height 80% --header "Selecione uma pasta:")
+elif [[ "$path" == "-e" ]]; then
+    # Flag para criar uma sessão sem nome ("empty")
+    tmux new-session -ds "temp"
+    tmux switch-client -t "temp"
+    exit 0
+elif [[ "$path" == "-a" ]]; then
+    # Se não for informada uma pasta, busca de todas pastas do usuário
+    folder=$(find ~ -type d | fzf --reverse --height 80% --header "Selecione uma pasta de $(whoami):")
+else 
+    folder=$(zoxide query $path)
+fi
+
+
+# Verifica se a pasta selecionada existe
+if [[ -d "$folder" ]]; then
+    # Cria uma nova sessão no Tmux com o nome baseado no caminho da pasta
+    session_name=$(basename "$folder" | sed 's/\./-/g')
+
+    tmux_running=$(pgrep tmux)
+
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+        tmux new-session -s $session_name -c "$folder"
+        exit 0
+    fi
+
+    if ! tmux has-session -t=$session_name 2> /dev/null; then
+        tmux new-session -ds $session_name -c "$folder"
+    fi
+
+    tmux switch-client -t $session_name
+fi

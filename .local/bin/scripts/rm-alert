@@ -1,0 +1,23 @@
+#!/bin/bash
+
+argumento=""
+for var in "$@"
+do
+  if [[ "$var" != -* ]]; then
+    argumento="$var"
+    break
+  fi
+done
+
+if [[ -z "$argumento" ]]; then
+    echo "arquivo não existe"
+    exit 0
+fi
+
+read -p "Deseja usar 'rip' ao invés de 'rm'? (s/n): " resposta
+
+if [[ "$resposta" =~ ^[Ss]$ ]]; then
+    rip "$argumento"
+else
+    rm "$@"
+fi

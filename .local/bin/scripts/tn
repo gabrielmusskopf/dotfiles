@@ -1,0 +1,23 @@
+#!/bin/bash
+
+name="$1"
+
+if [ -z $name ]; then
+    echo "deve ser informado um nome para a sessão"
+    exit 1
+fi
+
+
+path=$(basename "~/")
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s $name -c "$path"
+    exit 0
+fi
+
+if ! tmux has-session -t=$name 2> /dev/null; then
+    tmux new-session -ds $name -c "$path"
+fi
+
+tmux switch-client -t $name

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+string_with_path="$1"
+home=$HOME
+
+if [[ $string_with_path == $home ]]; then
+    echo "~/"
+    exit 0
+fi
+
+echo "${string_with_path//$HOME\//\~/}"
+
+# /home/gabrielgmusskopf/.local/bin/scripts = ~/.local/bin/scripts
+# /home/gabrielgmusskopf = ~/
