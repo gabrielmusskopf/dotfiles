@@ -1,0 +1,34 @@
+#!/bin/bash
+
+send_notification() {
+	TODAY=$(date '+%-d')
+    echo $1
+	HEAD=$(cal -m "$1" | head -n1)
+	BODY=$(cal -m "$1" | tail -n7 | sed -z "s|$TODAY|<u><b>$TODAY</b></u>|1")
+	dunstify -h string:x-canonical-private-synchronous:calendar \
+		"$HEAD" "$BODY" -u NORMAL
+}
+
+handle_action() {
+	echo "$DIFF" > "$TMP"
+	if [ "$DIFF" -ge 0 ]; then
+        m=$(date -d "+$DIFF months" +"%m")
+		send_notification $m
+	else
+        m=$(date -d "$((-DIFF)) months ago" +"%m")
+		send_notification $m
+	fi
+}
+
+TMP=${XDG_RUNTIME_DIR:-/tmp}/"$UID"_calendar_notification_month
+touch "$TMP"
+
+DIFF=$(<"$TMP")
+
+case $1 in
+	"curr") DIFF=0;;
+	"next") DIFF=$((DIFF+1));;
+	"prev") DIFF=$((DIFF-1));;
+esac
+
+handle_action
