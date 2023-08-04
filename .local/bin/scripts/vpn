@@ -1,0 +1,74 @@
+#!/bin/bash
+
+PID_FILE=/tmp/openconnect.pid
+
+function usage() {
+    echo -e "Uso: \n    vpn [OPÇÃO]\n"
+
+   echo "Opções:"
+   echo "   -h, --help          Mostra opções de ajuda."
+   echo "   status              Exibe o status da conexão (on/off)."
+   echo "   off                 Finaliza a conexão existente."
+   echo "   on                  Inicia a conexão. Para a conexão ser realizada com sucesso, devem"
+   echo "                       existir as variáveis de ambiente \$VPN_HOST e \$VPN_PORT; Opcionalmente, "
+   echo "                       podem também ser configuradas as variáveis \$VPN_USER e \$VPN_PASS, para"
+   echo "                       que a autenticação seja feita sem que seja necessário informar esses."
+}
+
+function connect() {
+    if [[ $(status) == "on" ]]; then
+        echo "Uma conexão já está em andamento!"
+        exit 1
+    fi
+
+    if [ -z "${VPN_HOST}" ]; then
+        echo "Não foi possível concluir pois \$VPN_HOST não está definido"
+        exit 1
+    fi
+    if [[ -z "${VPN_PORT}" ]]; then
+        echo "Não foi possível concluir pois \$VPN_PORT não está definido"
+        exit 1
+    fi
+
+    flags=""
+    if [[ ! -z "${VPN_USER}" ]]; then
+        flags="-u $VPN_USER"
+    fi
+
+    if [ -z "${VPN_PASS}" ]; then
+        sudo openconnect $VPN_HOST:$VPN_PORT --pid-file $PID_FILE -b $flags
+        exit 0
+    fi
+
+    echo "$VPN_PASS" | sudo openconnect $VPN_HOST:$VPN_PORT --pid-file $PID_FILE -b $flags --passwd-on-stdin
+}
+
+function disconnect() {
+    if [[ $(status) == "on" ]]; then
+        pid=$(cat $PID_FILE)
+        sudo kill $pid
+        echo "VPN encerrada. PID = $pid"
+    else
+        echo "Nada para encerrar"
+    fi
+}
+
+function status() {
+    if [[ -f $PID_FILE ]]; then
+        echo "on"
+    else
+        echo "off"
+    fi
+}
+
+case $1 in
+    "-h" | --"help" ) usage;;
+    "on") connect;;
+    "off") disconnect;;
+    "status") status;;
+    *) 
+        echo "Opção inválida!"
+        usage
+        exit 1
+        ;;
+esac

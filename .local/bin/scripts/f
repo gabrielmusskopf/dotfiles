@@ -1,0 +1,13 @@
+#!/bin/bash
+
+path="$1"
+if [[ $path == "." || -z $path ]]; then
+    path="$PWD"
+fi
+
+cd $path
+f=$(find $path | fzf )
+
+if [[ -n "$f" ]]; then
+    nvim $f
+fi
