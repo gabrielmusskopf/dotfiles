@@ -12,7 +12,9 @@ fi
 
 term="$1"
 
-file=$(ag -i $term | grep -E '^[^0-9]'| grep -o '^[^:]*' | fzf)
+echo $term
+
+file=$(ag -i "$term" | grep -E '^[^0-9]'| grep -o '^[^:]*' | fzf)
 if [ -z $file ]; then
     exit 1
 fi
