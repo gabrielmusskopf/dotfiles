@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if ! command -v fzf &>/dev/null; then
+    echo "fzf must be installed"
+    exit 1
+fi
+
+vim="nvim"
+if ! command -v nvim &>/dev/null; then
+    vim="vim"
+fi
+
+term="$1"
+
+file=$(ag -i $term | grep -E '^[^0-9]'| grep -o '^[^:]*' | fzf)
+if [ -z $file ]; then
+    exit 1
+fi
+
+$vim $file
