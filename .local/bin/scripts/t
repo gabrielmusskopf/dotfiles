@@ -1,16 +1,21 @@
 #!/bin/bash
 
+change() {
+    sname="$1"
+    folder="$2"
+    if ! tmux has-session -t=$sname 2> /dev/null; then
+        tmux new-session -ds $sname -c "$folder"
+    fi
+
+    tmux switch-client -t $sname
+}
+
 path="$1"
 echo "$path"
 
 folder=""
 if [[ -z $path ]]; then
-    # Se não for informada uma pasta, busca de todas caminhos já conhecidos
-    folder=$(zoxide query -l | fzf --reverse --height 80% --header "Selecione uma pasta:")
-elif [[ "$path" == "-e" ]]; then
-    # Flag para criar uma sessão sem nome ("empty")
-    tmux new-session -ds "temp"
-    tmux switch-client -t "temp"
+    change "home" "~/"
     exit 0
 elif [[ "$path" == "-a" ]]; then
     # Se não for informada uma pasta, busca de todas pastas do usuário
@@ -18,7 +23,6 @@ elif [[ "$path" == "-a" ]]; then
 else 
     folder=$(zoxide query $path)
 fi
-
 
 # Verifica se a pasta selecionada existe
 if [[ -d "$folder" ]]; then
